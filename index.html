@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>محمصه كاجو</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <img id="logo" src="logo.png" alt="محمصه كاجو">
+    <span>محمصه كاجو - TOASTER KAJO</span>
+  </header>
+
+  <nav>
+    <input type="text" id="searchInput" placeholder="ابحث عن منتج..." oninput="searchProducts()">
+    <button onclick="filterProducts('all')">الكل</button>
+    <button onclick="filterProducts('lp')">لب</button>
+    <button onclick="filterProducts('moca')">مقرمشات</button>
+    <button onclick="filterProducts('soda')"> سوداني</button>
+    <button onclick="filterProducts('hlwa')">حلويات </button>
+  </nav>
+
+  <div class="grid" id="productsGrid"></div>
+
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <div class="popup-header">
+        <img id="popupImg" src="" alt="">
+      </div>
+      <div class="popup-body">
+        <h2 id="popupTitle"></h2>
+        <p id="popupDesc"></p>
+        <div class="price-tag">
+          <span id="popupPrice"></span> جنيه
+        </div>
+        <div class="order-details">
+          <div class="input-group">
+            <label>الكمية:</label>
+            <input type="number" id="quantity" placeholder="الكمية" min="1" value="1" oninput="updateTotal()">
+          </div>
+          <div class="input-group">
+            <label>العنوان:</label>
+            <input type="text" id="userAddress" placeholder="أدخل عنوانك..." oninput="updateTotal()">
+          </div>
+          <div class="total-price">
+            <span>الإجمالي:</span>
+            <span id="totalPrice">0</span> جنيه
+          </div>
+        </div>
+        <button id="whatsappBtn" class="whatsapp-btn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> طلب عبر واتساب
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
