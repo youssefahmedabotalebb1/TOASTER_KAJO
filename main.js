@@ -1,5 +1,5 @@
 const firebaseConfig = {
-  databaseURL: "https://omarocoo-5c4a1-default-rtdb.firebaseio.com/"
+  databaseURL: "https://whatsbesnes-default-rtdb.firebaseio.com/"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -9,7 +9,8 @@ const categories = {
   "lp": "dolab",
   "moca": "rham",
   "soda": "zgag",
-  "hlwa": "kalb"
+  "hlwa": "kalb",
+  "wath": "wath"  // إضافة قسم المشاريب الجديد
 };
 
 let allProducts = [];
@@ -21,15 +22,31 @@ const fetchAllProducts = async () => {
     const prefix = categories[path];
     const snapshot = await db.ref(path).once("value");
     const data = snapshot.val();
-    for (let id in data) {
-      const item = data[id];
-      all.push({
-        image: item[`${prefix}_photo`] || "",
-        title: item[`${prefix}_titel`] || "منتج بدون اسم",
-        description: item[`${prefix}_waf`] || item[`agng_waf`] || item[`Kalb_wat`] || "",
-        price: parseFloat(item[`${prefix}_price`] || 0),
-        category: path
-      });
+    
+    if (data) {  // التحقق من وجود البيانات
+      for (let id in data) {
+        const item = data[id];
+        
+        // حل مشكلة الوصف المختلف لكل قسم
+        let description = "";
+        if (item[`${prefix}_waf`]) {
+          description = item[`${prefix}_waf`];
+        } else if (item[`agng_waf`]) {
+          description = item[`agng_waf`];
+        } else if (item[`Kalb_wat`]) {
+          description = item[`Kalb_wat`];
+        } else if (item[`wath_desc`]) {  // إضافة حقل وصف محتمل للمشاريب
+          description = item[`wath_desc`];
+        }
+        
+        all.push({
+          image: item[`${prefix}_photo`] || "",
+          title: item[`${prefix}_titel`] || item[`${prefix}_title`] || item[`${prefix}_name`] || "منتج بدون اسم",
+          description: description,
+          price: parseFloat(item[`${prefix}_price`] || 0),
+          category: path
+        });
+      }
     }
   }
 
