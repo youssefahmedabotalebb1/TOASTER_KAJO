@@ -20,10 +20,19 @@
     <button onclick="filterProducts('soda')"> سوداني</button>
     <button onclick="filterProducts('hlwa')">حلويات </button>
     <button onclick="filterProducts('wath')">مشاريب</button>
+    
+    <!-- Cart button with badge -->
+    <div class="cart-container">
+      <button id="cartBtn" onclick="showCart()">
+        <img src="cart-icon.png" alt="سلة المشتريات">
+        <span id="cartBadge" class="cart-badge hidden">0</span>
+      </button>
+    </div>
   </nav>
 
   <div class="grid" id="productsGrid"></div>
 
+  <!-- Product popup -->
   <div id="popup" class="popup hidden">
     <div class="popup-content">
       <span class="close-btn" onclick="closePopup()">&times;</span>
@@ -50,9 +59,43 @@
             <span id="totalPrice">0</span> جنيه
           </div>
         </div>
-        <button id="whatsappBtn" class="whatsapp-btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> طلب عبر واتساب
-        </button>
+        <div class="popup-buttons">
+          <button id="addToCartBtn" class="add-cart-btn">
+            <img src="cart-icon.png" width="20"> إضافة إلى السلة
+          </button>
+          <button id="whatsappBtn" class="whatsapp-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> طلب عبر واتساب
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart popup -->
+  <div id="cartPopup" class="popup hidden">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closeCart()">&times;</span>
+      <div class="popup-body">
+        <h2>سلة المشتريات</h2>
+        <div id="cartItems" class="cart-items">
+          <!-- Cart items will be inserted here -->
+        </div>
+        <div class="cart-summary">
+          <div class="cart-total">
+            <span>الإجمالي:</span>
+            <span id="cartTotal">0</span> جنيه
+          </div>
+          <div class="input-group">
+            <label>العنوان للتوصيل:</label>
+            <input type="text" id="cartAddress" placeholder="أدخل عنوانك للتوصيل...">
+          </div>
+          <button id="checkoutBtn" class="checkout-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> إتمام الطلب
+          </button>
+          <button id="clearCartBtn" class="clear-cart-btn">
+            إفراغ السلة
+          </button>
+        </div>
       </div>
     </div>
   </div>

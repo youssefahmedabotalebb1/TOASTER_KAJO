@@ -27,9 +27,11 @@ header {
 nav {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10px;
   padding: 10px;
   background-color: #eee;
+  flex-wrap: wrap;
 }
 
 nav button {
@@ -43,6 +45,50 @@ nav button {
 
 nav button:hover {
   background-color: #000;
+}
+
+/* Shopping Cart Button Styles */
+.cart-container {
+  position: relative;
+  margin-right: 10px;
+}
+
+#cartBtn {
+  background-color: #25D366;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+#cartBtn img {
+  width: 24px;
+  height: 24px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-badge.hidden {
+  display: none;
 }
 
 .grid {
@@ -199,7 +245,7 @@ nav button:hover {
   color: #555;
 }
 
-#quantity, #userAddress {
+#quantity, #userAddress, #cartAddress {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
@@ -208,7 +254,7 @@ nav button:hover {
   transition: border 0.3s;
 }
 
-#quantity:focus, #userAddress:focus {
+#quantity:focus, #userAddress:focus, #cartAddress:focus {
   border-color: #25D366;
   outline: none;
 }
@@ -223,16 +269,19 @@ nav button:hover {
   color: #333;
 }
 
-.whatsapp-btn {
-  background-color: #25D366;
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.whatsapp-btn, .add-cart-btn {
+  flex: 1;
   color: white;
   border: none;
   border-radius: 8px;
   padding: 12px 15px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
-  width: 100%;
-  margin-top: 15px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -242,13 +291,27 @@ nav button:hover {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.whatsapp-btn {
+  background-color: #25D366;
+}
+
+.add-cart-btn {
+  background-color: #ff9800;
+}
+
 .whatsapp-btn:hover {
   background-color: #128C7E;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.whatsapp-btn img {
+.add-cart-btn:hover {
+  background-color: #e67e00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.whatsapp-btn img, .add-cart-btn img {
   width: 24px;
   height: 24px;
 }
@@ -258,4 +321,206 @@ nav input[type="text"] {
   width: 200px;
   border-radius: 5px;
   border: 1px solid #aaa;
+}
+
+/* Shopping Cart Styles */
+.cart-items {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-left: 10px;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+.cart-item-details h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.cart-item-details p {
+  margin: 0;
+  color: #666;
+}
+
+.cart-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cart-item-actions button {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+.cart-item-actions button.remove-btn {
+  background-color: #ff5722;
+  color: white;
+}
+
+.cart-summary {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.checkout-btn {
+  background-color: #25D366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s;
+}
+
+.checkout-btn:hover {
+  background-color: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.checkout-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.clear-cart-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.clear-cart-btn:hover {
+  background-color: #d32f2f;
+}
+
+.clear-cart-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.empty-cart {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-style: italic;
+}
+
+/* Notification styles */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  z-index: 1100;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  nav input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .cart-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    margin: 0;
+    z-index: 100;
+  }
+  
+  #cartBtn {
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  }
+  
+  .popup-buttons {
+    flex-direction: column;
+  }
+  
+  .cart-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .cart-item img {
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+  
+  .cart-item-actions {
+    margin-top: 10px;
+  }
 }
